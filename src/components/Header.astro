@@ -1,7 +1,134 @@
 ---
-
+import { Image } from "astro:assets";
+import myImage from "../assets/MyLogoDabs.png";
+import { Menu, X } from "@lucide/astro";
 ---
 
-<nav class="">
+<header class="w-full h-dvh relative">
+  <nav class="flex justify-between bg-gray-900">
+    <ul class="hidden md:inline">
+      <a href="">Home</a>
+      <a href="">About</a>
+      <a href="">Service</a>
+    </ul>
+    <div class="flex items-center gap-x-3">
+      <Image
+        src={myImage}
+        alt="Dabs logo"
+        layout="constrained"
+        class="ml-5"
+        width={80}
+        height={80}
+      />
+      <span class="hidden text-2xl font-bold">DABS</span>
+      <div class="hidden md:flex md:flex-col">
+        <span>Made By</span>
+        <span>Daniel Serna</span>
+      </div>
+    </div>
+    <ul class="hidden md:inline">
+      <a href="">Resume</a>
+      <a href="">Project</a>
+      <a href="">Contact</a>
+    </ul>
+    <button id="menu-btn" class="z-20 mr-10 text-white">
+      <span id="menu-burguer-span" class="icon-open"><Menu class="w-10 h-10"/></span>
+      <span id="menu-x-span" class="icon-close hidden"><X class="w-10 h-10"/></span>
+    </button>
+  </nav>
+  <div
+    id="mobile-menu"
+    class="fixed top-0 right-0 w-20 h-20 bg-primary rounded-full menu-closed transform transition-transform duration-500 ease-in-out"
+  >
+  </div>
+  <div
+    id="mobile-menu-list"
+    class="menu-list-closed relative transition-opacity duration-500"
+  >
+    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">HOME</a>
+    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">ABOUT</a>
+    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">SERVICE</a>
+    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">RESUME</a>
+    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">PROJECT</a>
+    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">CONTACT</a>
+  </div>
+</header>
 
-</nav>
+<style>
+  @reference "../styles/global.css"
+
+  span {
+    font-family: "Nunito", sans-serif;
+  }
+
+  #mobile-menu-list {
+    @apply z-10 fixed inset-0 w-full h-dvh text-white flex flex-col items-center justify-start text-4xl font-bold space-y-10;
+  }
+
+  /* #mobile-menu a {
+    @apply transition-all duration-400 ease-in-out;
+  } */
+
+  .menu-open {
+    transform: translate(0, 100%);
+    transform: scale(25);
+  }
+
+  .menu-closed {
+    transform: translate(100%, 0);
+  }
+
+  .menu-list-open {
+    @apply opacity-100;
+  }
+
+  .menu-list-closed {
+    @apply opacity-0;
+  }
+</style>
+
+<script>
+  const button = document.getElementById("menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  const menuList = document.getElementById("mobile-menu-list");
+  const spanBurguerMenu = document.getElementById("menu-burguer-span");
+  const spanXMenu = document.getElementById("menu-x-span");
+  const linksMobileMenu = menuList?.querySelectorAll("a");
+
+  console.log(linksMobileMenu);
+
+  let isOpen = false;
+  let translateYQuantity = 100;
+
+  button?.addEventListener("click", () => {
+    isOpen = !isOpen;
+
+    spanBurguerMenu?.classList.toggle("hidden", isOpen);
+    spanXMenu?.classList.toggle("hidden", !isOpen);
+    menu?.classList.toggle("menu-open", isOpen);
+    menu?.classList.toggle("menu-closed", !isOpen);
+    menuList?.classList.toggle("menu-list-open", isOpen);
+    menuList?.classList.toggle("menu-list-closed", !isOpen);
+
+    // aquí controlo iconos y animaciones
+
+    if (isOpen) {
+      setTimeout(() => {
+        linksMobileMenu?.forEach((link, key) => {
+          console.log(key, translateYQuantity);
+          link.style.transform = `translateY(${translateYQuantity}px)`;
+          link.classList.replace('opacity-0', 'opacity-100')
+          translateYQuantity += 100;
+        });
+      }, 100);
+    } else {
+      linksMobileMenu?.forEach((link, key) => {
+        console.log(key, translateYQuantity);
+        link.style.removeProperty(`transform`);
+        link.classList.replace('opacity-100', 'opacity-0')
+      });
+    }
+
+    translateYQuantity = 100;
+  });
+</script>
