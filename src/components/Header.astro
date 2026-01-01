@@ -4,8 +4,8 @@ import myImage from "../assets/MyLogoDabs.png";
 import { Menu, X } from "@lucide/astro";
 ---
 
-<header class="w-full h-dvh relative">
-  <nav class="flex justify-between bg-gray-900">
+<header class="w-full h-auto mb-5">
+  <nav class="flex justify-between bg-[#3A3335]">
     <ul class="hidden md:inline">
       <a href="">Home</a>
       <a href="">About</a>
@@ -31,19 +31,19 @@ import { Menu, X } from "@lucide/astro";
       <a href="">Project</a>
       <a href="">Contact</a>
     </ul>
-    <button id="menu-btn" class="z-20 mr-10 text-white">
+    <button id="menu-btn" class="z-40 mr-10 text-white">
       <span id="menu-burguer-span" class="icon-open"><Menu class="w-10 h-10"/></span>
       <span id="menu-x-span" class="icon-close hidden"><X class="w-10 h-10"/></span>
     </button>
   </nav>
   <div
     id="mobile-menu"
-    class="fixed top-0 right-0 w-20 h-20 bg-primary rounded-full menu-closed transform transition-transform duration-500 ease-in-out"
+    class="fixed top-0 right-0 w-20 h-20 bg-primary rounded-full menu-closed transform transition-transform duration-500 ease-in-out z-20"
   >
   </div>
   <div
     id="mobile-menu-list"
-    class="menu-list-closed relative transition-opacity duration-500"
+    class="menu-list-closed relative transition-opacity duration-500 z-30"
   >
     <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">HOME</a>
     <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">ABOUT</a>
@@ -62,12 +62,8 @@ import { Menu, X } from "@lucide/astro";
   }
 
   #mobile-menu-list {
-    @apply z-10 fixed inset-0 w-full h-dvh text-white flex flex-col items-center justify-start text-4xl font-bold space-y-10;
+    @apply fixed inset-0 w-full text-white flex flex-col items-center justify-start text-4xl font-bold space-y-10;
   }
-
-  /* #mobile-menu a {
-    @apply transition-all duration-400 ease-in-out;
-  } */
 
   .menu-open {
     transform: translate(0, 100%);
@@ -79,11 +75,11 @@ import { Menu, X } from "@lucide/astro";
   }
 
   .menu-list-open {
-    @apply opacity-100;
+    @apply opacity-100 h-dvh;
   }
 
   .menu-list-closed {
-    @apply opacity-0;
+    @apply opacity-0 h-0;
   }
 </style>
 
