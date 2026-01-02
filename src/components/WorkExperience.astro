@@ -1,4 +1,6 @@
 ---
+import TimeLine from "./TimeLine.astro";
+
 
 ---
 
@@ -6,23 +8,5 @@
   <h2 class="text-3xl font-bold text-center">
     My <span class="text-primary">Work Experience</span>
   </h2>
-  <div class="flex items-center justify-center w-full mt-10 mx-3">
-    <div class="basis-1/3 text-center">
-      <h3 class="text-xl font-bold">Nuevo León, México</h3>
-      <p>Octubre 2023 - Abril 2024</p>
-    </div>
-    <div class="basis-1/3 flex items-center justify-center">
-      <div class="w-5 h-5 bg-primary rounded-full"></div>
-    </div>
-    <div class="basis-1/3 text-center">
-      <h3 class="text-xl font-bold">Becario</h3>
-      <h4>Banorte</h4>
-      <p>
-        Frontend-focused engineer responsible for building and maintaining
-        internal web interfaces. Collaborated closely with backend to deliver
-        scalable, user-centered solutions with a strong focus on performance,
-        responsiveness, accessibility, and SEO.
-      </p>
-    </div>
-  </div>
+  <TimeLine/>
 </section>
