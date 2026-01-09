@@ -5,26 +5,26 @@ const works = [
   {
     location: "Nuevo León, México",
     date: "Octubre 2023 - Abril 2024",
-    position: "Becario",
+    position: "Intern",
     company: "Banorte",
     description:
-      "Frontend-focused engineer responsible for building and maintaining internal web interfaces. Collaborated closely with backend to deliver scalable, user-centered solutions with a strong focus on performance, responsiveness, accessibility, and SEO.",
+      "Developed an internal .NET Core application to centralize client data for account executives, improving call management. Implemented the data access layer using Entity Framework and SQL Server, applying SOLID, KISS, and DRY principles to ensure a scalable and maintainable codebase.",
   },
   {
     location: "Nuevo León, México",
-    date: "Junio 2024 - Agosto 2024",
-    position: "Desarrollador Web Jr.",
-    company: "Tech Solutions",
+    date: "Junio 2024 - Diciembre 2024",
+    position: "QA Intern (Manual Testing)",
+    company: "Brillamont",
     description:
-      "Participé en el desarrollo de aplicaciones web utilizando tecnologías modernas como React y Node.js. Colaboré con equipos multifuncionales para diseñar, desarrollar e implementar soluciones web eficientes y escalables.",
+      "Executed manual functional and regression tests, designed test cases based on acceptance criteria, and reported defects while collaborating closely with developers to improve overall software quality.",
   },
   {
     location: "Nuevo León, México",
     date: "Marzo 2025 - Actualidad",
-    position: "Desarrollador Frontend Jr.",
+    position: "FrontEnd Developer Jr",
     company: "Local Solution IT",
     description:
-      "Desarrollé y mantuve sitios web para clientes diversos, asegurando una experiencia de usuario óptima y un diseño atractivo. Trabajé en estrecha colaboración con diseñadores y otros desarrolladores para implementar soluciones efectivas y escalables.",
+      "Frontend-focused engineer responsible for building and maintaining internal web interfaces. Collaborated closely with backend to deliver scalable, user-centered solutions with a strong focus on performance, responsiveness, accessibility, and SEO.",
   },
 ];
 ---
@@ -36,14 +36,16 @@ const works = [
         <div class="basis-1/3 text-center backdrop-blur-xs p-4 rounded-lg">
           <h3 class="text-xl font-bold text-text-secondary">{work.location}</h3>
           <p class="text-md text-text-muted">{work.date}</p>
-          <h3 class="text-lg font-bold text-text-secondary mt-2">{work.position}</h2>
+          <h3 class="text-lg font-bold text-text-secondary mt-2">
+            {work.position}
+          </h3>
           <h3 class="text-lg font-semibold text-text-secondary mt-1">
             {work.company}
-          </h4>
+          </h3>
         </div>
         <div class="basis-1/3 flex items-center justify-center p-1 border-6 border-text-secondary border-dashed rounded-full my-4">
           <button
-            class={`see-more-btn w-20 h-20 ${index === 0 || index === works.length - 1 ? 'bg-primary' : 'bg-secondary'} rounded-full flex items-center justify-center hover:scale-110 transition-transform`}
+            class={`see-more-btn w-20 h-20 ${index === 0 || index === works.length - 1 ? "bg-primary" : "bg-secondary"} rounded-full flex items-center justify-center hover:scale-110 transition-transform`}
             data-title={work.position}
             data-description={work.description}
             data-date={work.date}
