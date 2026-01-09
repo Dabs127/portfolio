@@ -1,0 +1,114 @@
+---
+import { Image } from "astro:assets";
+import CafeAromaImg from "../assets/CafeAromaProject.jpg";
+import GithubIcon from "../icons/GithubIcon.astro";
+
+const projects = [
+  {
+    title: "Cafe Aroma",
+    description: "A modern cafe website built with React and Tailwind CSS.",
+    imageUrl: CafeAromaImg,
+    githubLink: "https://github.com/Dabs127/cafearoma-frontend",
+  },
+  {
+    title: "Cafe Aroma",
+    description: "A modern cafe website built with Astro and Tailwind CSS.",
+    imageUrl: CafeAromaImg,
+    githubLink: "https://github.com/Dabs127/cafearoma-frontend",
+  },
+  {
+    title: "Cafe Aroma",
+    description: "A modern cafe website built with Astro and Tailwind CSS.",
+    imageUrl: CafeAromaImg,
+    githubLink: "https://github.com/Dabs127/cafearoma-frontend",
+  },
+];
+---
+
+<div class="relative overflow-hidden space-y-4">
+  <div
+    id="carousel"
+    class="carousel flex rounded-3xl transition-transform duration-300 touch-pan-y"
+  >
+    {
+      projects.map((p) => (
+        <div class="min-w-full relative flex items-center justify-center h-64 bg-gray-200 rounded-3xl">
+          <Image
+            src={p.imageUrl}
+            alt={`Image about project ${p.title}`}
+            layout="constrained"
+            class="w-full h-full object-cover rounded-3xl"
+          />
+          <div class="absolute bottom-0 left-0 bg-gray-900/70 text-white p-4 w-full space-y-3 rounded-b-3xl">
+            <p class="text-2xl font-bold">{p.title}</p>
+            <p>{p.description}</p>
+          </div>
+          <a href={p.githubLink} target="_blank">
+            <GithubIcon
+              size="40"
+              class="absolute top-4 right-4 cursor-pointer"
+              fill="#ffffff"
+            />
+          </a>
+        </div>
+      ))
+    }
+  </div>
+  <div class="w-full h-min flex justify-center space-x-2">
+    {
+      projects.map((p, index) => (
+        <div
+          class={`indicator h-3 rounded-full ${index === 0 ? "bg-primary w-8" : "bg-text-muted w-3"} transition-all duration-300 ease-in-out`}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const carousel = document.getElementById("carousel");
+  const total = carousel?.children.length ?? 0;
+  const circleIndicators = document.querySelectorAll(".indicator");
+
+  let index = 0;
+  let startX = 0;
+  let currentX = 0;
+  const threshold = 50; // px mínimos para considerar swipe
+
+  const update = () => {
+    if (carousel) carousel.style.transform = `translateX(-${index * 100}%)`;
+    circleIndicators.forEach((indicator, i) => {
+      if (i === index) {
+        indicator.classList.replace("bg-text-muted", "bg-primary");
+        indicator.classList.replace("w-3", "w-8");
+      } else {
+        indicator.classList.replace("bg-primary", "bg-text-muted");
+        indicator.classList.replace("w-8", "w-3");
+      }
+    });
+  };
+
+  carousel?.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+    currentX = startX;
+  });
+
+  carousel?.addEventListener("touchmove", (e) => {
+    currentX = e.touches[0].clientX;
+    const diff = startX - currentX;
+
+    carousel.style.transform = `translateX(calc(-${index * 100}% - ${diff}px))`;
+  });
+
+  carousel?.addEventListener("touchend", () => {
+    const diff = startX - currentX;
+
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0 && index < total - 1) index++;
+      if (diff < 0 && index > 0) index--;
+    }
+
+    update();
+    startX = currentX = 0;
+  });
+</script>
