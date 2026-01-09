@@ -2,26 +2,26 @@
 import DecisionIcon from "../icons/DecisionIcon.astro";
 ---
 
-<section class="flex min-h-1/2 mb-20 overflow-hidden">
-  <div class="basis-1/2 max-w-1/2 min-h-full p-3 rounded-2xl">
+<section class="flex min-h-1/2 mb-20 py-12 px-5 overflow-hidden bg-text-muted/20">
+  <div class="basis-1/2 max-w-1/2 min-h-full rounded-2xl hidden md:flex justify-center items-center">
     <div
       class="w-full h-full bg-primary rounded-2xl relative flex justify-center items-center"
     >
       <DecisionIcon size={250} class="text-primary mb-4" />
     </div>
   </div>
-  <div class="basis-1/2 flex flex-col justify-center p-3 space-y-6">
+  <div class="basis-full flex flex-col justify-center space-y-6">
     <h2 class="text-4xl font-bold text-center">
       Why <span class="text-text-primary">Hire Me</span>?
     </h2>
-    <p class="text-lg text-center text-text-muted">
+    <p class="text-lg text-center text-secondary">
       Frontend-focused software engineer passionate about performance, SEO, and
       building fast, reliable user interfaces. I enjoy turning complex
       requirements into clean, maintainable solutions that create real impact.
     </p>
     <a
       href="mailto:danielSerna127@outlook.com"
-      class="px-5 py-7 bg-white text-black font-bold border-2 text-2xl rounded-2xl text-center hover:text-white hover:bg-black transition-all duration-300 ease-in-out"
+      class="px-2 py-4 bg-black text-white font-bold border-2 text-xl rounded-2xl text-center hover:text-white hover:bg-black transition-all duration-300 ease-in-out"
       >Hire Me</a
     >
   </div>
