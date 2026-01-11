@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import vueImg  from "../assets/technologies/vue.png"
+import reactImg  from "../assets/technologies/react.png"
+import nodeJsImg from "../assets/technologies/nodejs.png"
+import gitImg from "../assets/technologies/git.png"
+import githubImg from "../assets/technologies/github.png"
+import nextImg from "../assets/technologies/next.png"
+import nuxtImg from "../assets/technologies/nuxt.png"
+import mysqlImg from "../assets/technologies/mysql.png"
+import postgresImg from "../assets/technologies/postgres.png"
+import csharpImg from "../assets/technologies/csharp.png"
+import dotnetImg from "../assets/technologies/dotnet.png"
+
+const technologies = [
+  { name: "Vue", img: vueImg },
+  { name: "React", img: reactImg },
+  { name: "Node.js", img: nodeJsImg },
+  { name: "Git", img: gitImg },
+  { name: "Github", img: githubImg },
+  { name: "Next.js", img: nextImg },
+  { name: "Nuxt.js", img: nuxtImg },
+  { name: "MySQL", img: mysqlImg},
+  { name: "PostgreSQL", img: postgresImg },
+  { name: "C#", img: csharpImg },
+  { name: ".NET", img: dotnetImg }
+];
+---
+
+<section class="w-full min-h-40 h-min bg-[url(/src/assets/fondoLavanda.avif)] bg-cover bg-center flex flex-col items-center justify-center gap-8 py-16">
+  <h3 class="text-white font-bold text-4xl">Tech Stack</h3>
+  <div class="grid grid-cols-3 p-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
+    {
+      technologies.map(tech => (
+        <div class="flex flex-col items-center justify-center space-y-2 bg-secondary/20 py-4 px-2 rounded-lg shadow-lg ">
+          <Image src={tech.img} alt={tech.name} layout="constrained" width={40} height={40} />
+          <p class="text-xl text-text-muted font-bold">{tech.name}</p>
+        </div>
+      ))      
+    }
+  </div>
+</section>
