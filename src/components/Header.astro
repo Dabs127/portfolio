@@ -31,11 +31,17 @@ import { Menu, X } from "@lucide/astro";
       <a href="">Project</a>
       <a href="">Contact</a>
     </ul>
-    <button id="menu-btn" class="z-40 mr-10 text-white">
-      <span id="menu-burguer-span" class="icon-open"><Menu class="w-10 h-10"/></span>
-      <span id="menu-x-span" class="icon-close hidden"><X class="w-10 h-10"/></span>
+    <button id="menu-btn" class="z-40 mr-4 text-white md:hidden">
+      <span id="menu-burguer-span" class="icon-open"
+        ><Menu class="w-10 h-10" /></span
+      >
     </button>
   </nav>
+  <button id="menu-btn-x" class="fixed top-4 right-4 text-white z-40">
+    <span id="menu-x-span" class="icon-close hidden"
+      ><X class="w-10 h-10" /></span
+    >
+  </button>
   <div
     id="mobile-menu"
     class="fixed top-0 right-0 w-20 h-20 bg-primary rounded-full menu-closed transform transition-transform duration-500 ease-in-out z-20"
@@ -45,12 +51,30 @@ import { Menu, X } from "@lucide/astro";
     id="mobile-menu-list"
     class="menu-list-closed relative transition-opacity duration-500 z-30"
   >
-    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">HOME</a>
-    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">ABOUT</a>
-    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">SERVICE</a>
-    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">RESUME</a>
-    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">PROJECT</a>
-    <a href="" class="absolute opacity-0 transition-all duration-400 ease-in-out">CONTACT</a>
+    <a
+      href="#home"
+      class="absolute opacity-0 transition-all duration-400 ease-in-out">HOME</a
+    >
+    <a
+      href="#work-experience"
+      class="absolute opacity-0 transition-all duration-400 ease-in-out"
+      >WORK EXPERIENCE</a
+    >
+    <a
+      href="#why-hire-me"
+      class="absolute opacity-0 transition-all duration-400 ease-in-out"
+      >WHY HIRE ME</a
+    >
+    <a
+      href="#projects"
+      class="absolute opacity-0 transition-all duration-400 ease-in-out"
+      >PROJECTS</a
+    >
+    <a
+      href="#tech-stack"
+      class="absolute opacity-0 transition-all duration-400 ease-in-out"
+      >TECH STACK</a
+    >
   </div>
 </header>
 
@@ -84,7 +108,8 @@ import { Menu, X } from "@lucide/astro";
 </style>
 
 <script>
-  const button = document.getElementById("menu-btn");
+  const menuBtn = document.getElementById("menu-btn");
+  const menuBtnX = document.getElementById("menu-btn-x");
   const menu = document.getElementById("mobile-menu");
   const menuList = document.getElementById("mobile-menu-list");
   const spanBurguerMenu = document.getElementById("menu-burguer-span");
@@ -92,10 +117,11 @@ import { Menu, X } from "@lucide/astro";
   const linksMobileMenu = menuList?.querySelectorAll("a");
 
   let isOpen = false;
-  let translateYQuantity = 100;
 
-  button?.addEventListener("click", () => {
+  const toggleMenu = () => {
     isOpen = !isOpen;
+    const translateYStart = 100;
+    let translateYQuantity = translateYStart;
 
     spanBurguerMenu?.classList.toggle("hidden", isOpen);
     spanXMenu?.classList.toggle("hidden", !isOpen);
@@ -104,25 +130,29 @@ import { Menu, X } from "@lucide/astro";
     menuList?.classList.toggle("menu-list-open", isOpen);
     menuList?.classList.toggle("menu-list-closed", !isOpen);
 
-    // aquí controlo iconos y animaciones
-
     if (isOpen) {
       setTimeout(() => {
-        linksMobileMenu?.forEach((link, key) => {
-          console.log(key, translateYQuantity);
+        linksMobileMenu?.forEach((link) => {
           link.style.transform = `translateY(${translateYQuantity}px)`;
-          link.classList.replace('opacity-0', 'opacity-100')
+          link.classList.replace("opacity-0", "opacity-100");
           translateYQuantity += 100;
         });
       }, 100);
     } else {
-      linksMobileMenu?.forEach((link, key) => {
-        console.log(key, translateYQuantity);
-        link.style.removeProperty(`transform`);
-        link.classList.replace('opacity-100', 'opacity-0')
+      linksMobileMenu?.forEach((link) => {
+        link.style.removeProperty("transform");
+        link.classList.replace("opacity-100", "opacity-0");
       });
     }
+  };
 
-    translateYQuantity = 100;
+  menuBtn?.addEventListener("click", toggleMenu);
+  menuBtnX?.addEventListener("click", toggleMenu);
+
+  // Opcional: cerrar al hacer clic en un link
+  linksMobileMenu?.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (isOpen) toggleMenu();
+    });
   });
 </script>
