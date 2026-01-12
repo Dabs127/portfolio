@@ -1,0 +1,41 @@
+---
+import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
+import BaseButton from "./common/BaseButton.astro";
+---
+
+<footer class="w-full bg-secondary h-auto p-3">
+  <div
+    class="flex w-full gap-x-6 py-8 border-b border-b-text-muted/20 justify-center items-center"
+  >
+    <h3 class="text-white text-4xl">Let's connect!</h3>
+    <a
+      href="mailto:danielSerna127@outlook.com"
+      class="bg-primary text-white p-3 rounded-lg flex items-center gap-x-3 hover:bg-purple-700 hover:cursor-pointer transition-colors duration-300"
+    >
+      Contact Me
+      <ArrowRightIcon />
+    </a>
+  </div>
+  <div class="flex justify-between py-5 border-b border-b-text-muted/20">
+    <div class="basis-1/4 text-primary text-2xl font-bold">
+      <h4>Navigation</h4>
+      <ul class="text-white text-lg space-y-4 py-3">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#work-experience">Work Experience</a></li>
+        <li><a href="#why-hire-me">Why Hire Me</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#tech-stack">Tech Stack</a></li>
+      </ul>
+    </div>
+    <div class="basis-1/4 text-primary text-2xl font-bold">
+      <h4>Contact</h4>
+      <p class="text-white text-lg py-3">Email: danielSerna127@outlook.com</p>
+      <p class="text-white text-lg">Phone: +52 81 17 86 92 73</p>
+    </div>
+  </div>
+  <div>
+    <p class="text-text-muted text-center py-4">
+      &copy; 2026 Daniel Serna. All rights reserved.
+    </p>
+  </div>
+</footer>
