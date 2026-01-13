@@ -1,31 +1,37 @@
 ---
 import { Image } from "astro:assets";
 import CafeAromaImg from "../assets/CafeAromaProject.jpg";
+
+// Importa las imágenes de tecnologías
+import nextImg from "../assets/technologies/next.png";
+// import tailwindImg from "../assets/technologies/tailwind.png";
+import typescriptImg from "../assets/technologies/typescript.png";
+import nodejsImg from "../assets/technologies/nodeJs.png";
+import expressImg from "../assets/technologies/expressJs.webp";
+import mongodbImg from "../assets/technologies/mongodb.png";
 import GithubIcon from "../icons/GithubIcon.astro";
 
 const projects = [
   {
     title: "Cafe Aroma",
-    description: "A modern cafe website built with React and Tailwind CSS.",
+    description:
+      "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur adipiscing elit. Lorem ipsum dolor sit amet consectetur adipiscing elit. Lorem ipsum dolor sit amet consectetur adipiscing elit.",
     imageUrl: CafeAromaImg,
     githubLink: "https://github.com/Dabs127/cafearoma-frontend",
-  },
-  {
-    title: "Cafe Aroma",
-    description: "A modern cafe website built with Astro and Tailwind CSS.",
-    imageUrl: CafeAromaImg,
-    githubLink: "https://github.com/Dabs127/cafearoma-frontend",
-  },
-  {
-    title: "Cafe Aroma",
-    description: "A modern cafe website built with Astro and Tailwind CSS.",
-    imageUrl: CafeAromaImg,
-    githubLink: "https://github.com/Dabs127/cafearoma-frontend",
+    technologies: [
+      { name: "Next", image: nextImg.src },
+      // { name: "Tailwind CSS", image: tailwindImg.src },
+      { name: "Typescript", image: typescriptImg.src },
+      { name: "Node.js", image: nodejsImg.src },
+      { name: "Express", image: expressImg.src },
+      { name: "MongoDB", image: mongodbImg.src },
+    ],
   },
 ];
 ---
 
 <div class="relative overflow-hidden space-y-4">
+  <!-- Carousel -->
   <div
     id="carousel"
     class="carousel flex rounded-3xl transition-transform duration-300 touch-pan-y"
@@ -36,13 +42,8 @@ const projects = [
           <Image
             src={p.imageUrl}
             alt={`Image about project ${p.title}`}
-            layout="constrained"
             class="w-full h-full object-cover rounded-3xl"
           />
-          <div class="absolute bottom-0 left-0 bg-gray-900/70 text-white p-4 w-full space-y-3 rounded-b-3xl">
-            <p class="text-2xl font-bold">{p.title}</p>
-            <p>{p.description}</p>
-          </div>
           <a href={p.githubLink} target="_blank">
             <GithubIcon
               size="40"
@@ -54,6 +55,8 @@ const projects = [
       ))
     }
   </div>
+
+  <!-- Indicadores -->
   <div class="w-full h-min flex justify-center space-x-2">
     {
       projects.map((p, index) => (
@@ -63,17 +66,43 @@ const projects = [
       ))
     }
   </div>
+
+  <!-- Info del proyecto -->
+  <div class="w-full flex flex-col items-center justify-center text-center">
+    <h4 id="project-title" class="text-2xl text-secondary font-extrabold">
+      {projects[0]?.title}
+    </h4>
+    <p id="project-description" class="min-h-25">{projects[0]?.description}</p>
+    <div
+      id="tech-stack-container"
+      class="mt-4 w-full flex items-center justify-center gap-4 flex-wrap"
+    >
+      {
+        projects[0]?.technologies.map((tech) => (
+          <img
+            src={tech.image}
+            alt={tech.name}
+            title={tech.name}
+            class="w-10 h-10 object-contain hover:scale-110 transition-transform"
+          />
+        ))
+      }
+    </div>
+  </div>
 </div>
 
-<script>
+<!-- Pasar datos al script -->
+<script define:vars={{ projects }}>
   const carousel = document.getElementById("carousel");
   const total = carousel?.children.length ?? 0;
   const circleIndicators = document.querySelectorAll(".indicator");
+  const projectTitle = document.querySelector("#project-title");
+  const projectDescription = document.querySelector("#project-description");
 
   let index = 0;
   let startX = 0;
   let currentX = 0;
-  const threshold = 50; // px mínimos para considerar swipe
+  const threshold = 50;
 
   const update = () => {
     if (carousel) carousel.style.transform = `translateX(-${index * 100}%)`;
@@ -86,6 +115,27 @@ const projects = [
         indicator.classList.replace("w-8", "w-3");
       }
     });
+
+    projectTitle.textContent = projects[index]?.title;
+    projectDescription.textContent = projects[index]?.description;
+
+    const techStack = projects[index]?.technologies || [];
+    const techContainer = document.getElementById("tech-stack-container");
+
+    if (techContainer) {
+      techContainer.innerHTML = techStack
+        .map(
+          (tech) => `
+          <img 
+            src="${tech.image}" 
+            alt="${tech.name}"
+            title="${tech.name}"
+            class="w-12 h-12 object-contain hover:scale-110 transition-transform"
+          />
+        `
+        )
+        .join("");
+    }
   };
 
   carousel?.addEventListener("touchstart", (e) => {
@@ -96,18 +146,15 @@ const projects = [
   carousel?.addEventListener("touchmove", (e) => {
     currentX = e.touches[0].clientX;
     const diff = startX - currentX;
-
     carousel.style.transform = `translateX(calc(-${index * 100}% - ${diff}px))`;
   });
 
   carousel?.addEventListener("touchend", () => {
     const diff = startX - currentX;
-
     if (Math.abs(diff) > threshold) {
       if (diff > 0 && index < total - 1) index++;
       if (diff < 0 && index > 0) index--;
     }
-
     update();
     startX = currentX = 0;
   });
