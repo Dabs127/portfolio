@@ -9,21 +9,25 @@ import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
 ---
 
 <section
-  class="w-full flex-1 flex flex-col items-center justify-end overflow-hidden text-center mb-10"
+  class="w-full h-full max-h-min flex flex-col items-center justify-end text-center overflow-hidden relative sm:mb-10 lg:min-h-[85dvh]"
 >
-  <p class="w-1/4 text-xl font-semibold p-3 mb-5 border rounded-3xl">Hello!</p>
-  <h1 class="text-5xl font-bold tracking-wide">
-    I'm <span class="text-primary">Daniel</span>, Frontend Developer
+  <p
+    class="w-1/4 text-xl font-semibold p-3 mb-5 border rounded-3xl sm:max-w-30"
+  >
+    Hello!
+  </p>
+  <h1 class="text-3xl font-bold tracking-wide mx-5 sm:text-7xl sm:max-w-1/2 md:text-7xl md:max-w-full md:mx-10 lg:text-8xl lg:mx-0 lg:max-w-2/3 lg:absolute lg:top-30 lg:line-clamp-2">
+    I'm <span class="text-primary">Daniel</span>,<br> Frontend Developer
   </h1>
-  <div>
-    <p class="text-lg font-semibold mt-5 mx-5">
+  <div class="mb-10 lg:absolute lg:flex lg:justify-between lg:items-center lg:bottom-80 lg:w-full lg:px-10 lg:py-5 lg:mb-0">
+    <p class="text-md font-semibold mt-5 mx-5 sm:mx-10 md:text-xl lg:basis-1/4">
       I enjoy building web interfaces that are fast, accessible, and easy to
       use. I’m currently working as a frontend developer, but my background in
       software engineering allows me to think beyond the UI and understand how
       systems work as a whole. I care about writing clean, maintainable code and
       collaborating with teams to build products that last.
     </p>
-    <div class="flex flex-col items-center space-y-3 mt-5">
+    <div class="flex flex-col items-center space-y-3 mt-5 lg:basis-1/4">
       <div class="flex space-x-3">
         <a
           href="https://github.com/Dabs127"
@@ -31,7 +35,7 @@ import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
           rel="noopener noreferrer"
           aria-label="Github profile"
         >
-          <GithubIcon size="40" />
+          <GithubIcon class="w-15 h-15" />
         </a>
         <a
           href="https://linkedin.com/in/dabs127"
@@ -39,7 +43,7 @@ import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
           rel="noopener noreferrer"
           aria-label="Linkedin profile"
         >
-          <LinkedinIcon size="40" />
+          <LinkedinIcon class="w-15 h-15" />
         </a>
       </div>
       <a
@@ -53,40 +57,40 @@ import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
       </a>
     </div>
   </div>
+  <Image
+    src={myImage}
+    alt="An image of Daniel Barajas"
+    widths={[140, 260, 380]}
+    sizes="(max-width: 640px) 140px, 360px"
+    class="relative bottom-0 aspect-square z-10 lg:absolute"
+  />
   <div
-    class="w-full h-110 max-w-120 bg-primary relative top-50 rounded-full flex items-center justify-center z-0"
+    class="absolute bottom-0 w-2/3 min-w-min h-auto flex justify-center items-center space-x-5 text-white text-xl backdrop-blur-sm mb-5 p-3 rounded-full border-4 border-x-2 border-t z-10 lg:max-w-1/4"
   >
-    <Image
-      src={myImage}
-      width={350}
-      height={350}
-      alt="An image of Daniel Barajas"
-      layout="constrained"
-      class="relative -top-38 aspect-square"
-    />
-    <div
-      class="absolute mb-15 w-3/4 min-w-min max-h-min flex space-x-5 text-white text-xl backdrop-blur-sm p-3 rounded-full border-4 border-x-2 border-t"
+    <a
+      href="#projects"
+      class="group basis-2xs flex items-center gap-x-2 justify-center p-2.5 rounded-2xl hover:bg-primary hover:basis-sm hover:font-bold transition-all"
     >
-      <a
-        href="#projects"
-        class="group basis-2xs flex items-center gap-x-2 justify-center p-2.5 rounded-2xl hover:bg-primary hover:basis-sm hover:font-bold transition-all"
-      >
-        Portfolio
-        <ArrowRightIcon
-          size="28"
-          class="hidden -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:inline transition-all duration-200 -rotate-45"
-        />
-      </a>
-      <a
-        href="mailto:danielSerna127@outlook.com"
-        class="group basis-2xs flex items-center gap-x-2 justify-center p-2.5 rounded-2xl hover:bg-primary hover:basis-sm hover:font-bold transition-all"
-      >
-        Hire Me
-        <ArrowRightIcon
-          size="28"
-          class="hidden -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:inline transition-all duration-200 -rotate-45"
-        />
-      </a>
-    </div>
+      Portfolio
+      <ArrowRightIcon
+        size="28"
+        class="hidden -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:inline transition-all duration-200 -rotate-45"
+      />
+    </a>
+    <a
+      href="mailto:danielSerna127@outlook.com"
+      class="group basis-2xs flex items-center gap-x-2 justify-center p-2.5 rounded-2xl hover:bg-primary hover:basis-sm hover:font-bold transition-all"
+    >
+      Hire Me
+      <ArrowRightIcon
+        size="28"
+        class="hidden -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:inline transition-all duration-200 -rotate-45"
+      />
+    </a>
+  </div>
+  <div
+    class="w-full h-1/4 bg-primary absolute rounded-t-full z-0  
+         sm:h-120 sm:max-w-200"
+  >
   </div>
 </section>
