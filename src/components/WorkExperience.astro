@@ -1,11 +1,16 @@
 ---
 import TimeLine from "./TimeLine.astro";
 import TimeLineMobile from "./TimeLineMobile.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils"
+
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section id="work-experience" class="w-full flex flex-col items-center mb-20">
   <h2 class="text-4xl font-bold text-center md:text-5xl lg:text-7xl">
-    My <span class="text-primary">Work Experience</span>
+    {t("myworkexperience.possesive")} <span class="text-primary">{t("myworkexperience.title")}</span>
   </h2>
   <div class="w-full mt-10 sm:max-w-3xl lg:hidden">
     <TimeLineMobile />
