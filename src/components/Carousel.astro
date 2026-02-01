@@ -7,11 +7,15 @@ import nodejsImg from "../assets/technologies/nodeJs.png";
 import expressImg from "../assets/technologies/expressJs.webp";
 import mongodbImg from "../assets/technologies/mongodb.png";
 import GithubIcon from "../icons/GithubIcon.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils"
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const projects = [
   {
     title: "Cafe Aroma",
-    description: "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+    description: t("portfolio.project1.description"),
     imageUrl: CafeAromaImg,
     githubLink: "https://github.com/Dabs127/cafearoma-frontend",
     technologies: [
@@ -20,17 +24,6 @@ const projects = [
       { name: "Node.js", image: nodejsImg.src },
       { name: "Express", image: expressImg.src },
       { name: "MongoDB", image: mongodbImg.src },
-    ],
-  },
-  {
-    title: "Project 2",
-    description: "Another project description here.",
-    imageUrl: CafeAromaImg,
-    githubLink: "https://github.com/Dabs127/cafearoma-frontend",
-    technologies: [
-      { name: "Next", image: nextImg.src },
-      { name: "Typescript", image: typescriptImg.src },
-      { name: "Node.js", image: nodejsImg.src },
     ],
   },
 ];

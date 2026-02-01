@@ -7,11 +7,15 @@ import nodejsImg from "../assets/technologies/nodeJs.png";
 import expressImg from "../assets/technologies/expressJs.webp";
 import mongodbImg from "../assets/technologies/mongodb.png";
 import GithubIcon from "../icons/GithubIcon.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils"
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const projects = [
   {
     title: "Cafe Aroma",
-    description: "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+    description: t("portfolio.project1.description"),
     imageUrl: CafeAromaImg,
     githubLink: "https://github.com/Dabs127/cafearoma-frontend",
     technologies: [
@@ -19,27 +23,6 @@ const projects = [
       { name: "Typescript", image: typescriptImg.src },
       { name: "Node.js", image: nodejsImg.src },
       { name: "Express", image: expressImg.src },
-      { name: "MongoDB", image: mongodbImg.src },
-    ],
-  },
-  {
-    title: "Project 2",
-    description: "Another project description here.",
-    imageUrl: CafeAromaImg,
-    githubLink: "https://github.com/Dabs127/cafearoma-frontend",
-    technologies: [
-      { name: "Next", image: nextImg.src },
-      { name: "Typescript", image: typescriptImg.src },
-      { name: "Node.js", image: nodejsImg.src },
-    ],
-  },
-  {
-    title: "Project 3",
-    description: "Third project with amazing features.",
-    imageUrl: CafeAromaImg,
-    githubLink: "https://github.com/Dabs127/cafearoma-frontend",
-    technologies: [
-      { name: "Next", image: nextImg.src },
       { name: "MongoDB", image: mongodbImg.src },
     ],
   },
@@ -51,17 +34,24 @@ const projects = [
   <div class="grid grid-cols-3 gap-8">
     {
       projects.map((p, idx) => (
-        <div 
+        <div
           class="project-card cursor-pointer transition-all duration-300 hover:scale-105"
           data-index={idx}
         >
-          <div class={`relative h-90 rounded-3xl overflow-hidden ${idx === 0 ? 'ring-8 ring-primary' : 'opacity-60'}`}>
+          <div
+            class={`relative h-90 rounded-3xl overflow-hidden ${idx === 0 ? "ring-8 ring-primary" : "opacity-60"}`}
+          >
             <Image
               src={p.imageUrl}
               alt={`Image about project ${p.title}`}
               class="w-full h-full object-cover"
             />
-            <a href={p.githubLink} target="_blank" rel="noopener noreferrer" onclick="(e) => e.stopPropagation()">
+            <a
+              href={p.githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="(e) => e.stopPropagation()"
+            >
               <GithubIcon
                 size="40"
                 class="absolute top-4 right-4 cursor-pointer hover:scale-110 transition-transform z-10"
@@ -76,13 +66,19 @@ const projects = [
 
   <!-- Info del proyecto seleccionado -->
   <div class="w-full flex flex-col items-center text-center px-5">
-    <h4 id="project-title-desktop" class="text-3xl text-secondary font-extrabold">
+    <h4
+      id="project-title-desktop"
+      class="text-3xl text-secondary font-extrabold"
+    >
       {projects[0]?.title}
     </h4>
     <p id="project-description-desktop" class="max-w-3xl mt-3 text-lg">
       {projects[0]?.description}
     </p>
-    <div id="tech-stack-container-desktop" class="mt-6 flex justify-center gap-6 flex-wrap max-w-2xl">
+    <div
+      id="tech-stack-container-desktop"
+      class="mt-6 flex justify-center gap-6 flex-wrap max-w-2xl"
+    >
       {
         projects[0]?.technologies.map((tech) => (
           <img
@@ -100,7 +96,9 @@ const projects = [
 <script define:vars={{ projects }}>
   const projectCards = document.querySelectorAll(".project-card");
   const projectTitle = document.querySelector("#project-title-desktop");
-  const projectDescription = document.querySelector("#project-description-desktop");
+  const projectDescription = document.querySelector(
+    "#project-description-desktop",
+  );
   const techContainer = document.getElementById("tech-stack-container-desktop");
 
   let selectedIndex = 0;
@@ -121,13 +119,19 @@ const projects = [
     });
 
     // Actualizar información del proyecto
-    if (projectTitle) projectTitle.textContent = projects[selectedIndex]?.title || "";
-    if (projectDescription) projectDescription.textContent = projects[selectedIndex]?.description || "";
+    if (projectTitle)
+      projectTitle.textContent = projects[selectedIndex]?.title || "";
+    if (projectDescription)
+      projectDescription.textContent =
+        projects[selectedIndex]?.description || "";
 
     const techStack = projects[selectedIndex]?.technologies || [];
     if (techContainer) {
       techContainer.innerHTML = techStack
-        .map(tech => `<img src="${tech.image}" alt="${tech.name}" title="${tech.name}" class="w-14 h-14 object-contain hover:scale-110 transition-transform" />`)
+        .map(
+          (tech) =>
+            `<img src="${tech.image}" alt="${tech.name}" title="${tech.name}" class="w-14 h-14 object-contain hover:scale-110 transition-transform" />`,
+        )
         .join("");
     }
   };

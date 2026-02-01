@@ -6,26 +6,28 @@ import LinkedinIcon from "../icons/LinkedinIcon.astro";
 import BaseButton from "./common/BaseButton.astro";
 import DownloadIcon from "../icons/DownloadIcon.astro";
 import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils"
+import LanguagePicker from "./LanguagePicker.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section
   class="w-full h-full max-h-min flex flex-col items-center justify-end text-center overflow-hidden relative sm:mb-10 lg:min-h-[85dvh]"
 >
   <p
-    class="w-1/4 text-xl font-semibold p-3 mb-5 border rounded-3xl sm:max-w-30"
+    class="w-1/4 text-xl font-semibold p-3 mb-5 border rounded-3xl z-20 sm:max-w-30 lg:absolute lg:top-5"
   >
     Hello!
   </p>
+  <LanguagePicker/>
   <h1 class="text-3xl font-bold tracking-wide mx-5 sm:text-7xl sm:max-w-1/2 md:text-7xl md:max-w-full md:mx-10 lg:text-8xl lg:mx-0 lg:max-w-2/3 lg:absolute lg:top-30 lg:line-clamp-2">
-    I'm <span class="text-primary">Daniel</span>,<br> Frontend Developer
+    {t("hero.pronoun")} <span class="text-primary">Daniel</span>,<br> {t("hero.title")}
   </h1>
   <div class="mb-10 lg:absolute lg:flex lg:justify-between lg:items-center lg:bottom-80 lg:w-full lg:px-10 lg:py-5 lg:mb-0">
     <p class="text-md font-semibold mt-5 mx-5 sm:mx-10 md:text-xl lg:basis-1/4">
-      I enjoy building web interfaces that are fast, accessible, and easy to
-      use. I’m currently working as a frontend developer, but my background in
-      software engineering allows me to think beyond the UI and understand how
-      systems work as a whole. I care about writing clean, maintainable code and
-      collaborating with teams to build products that last.
+      {t("hero.description")}
     </p>
     <div class="flex flex-col items-center space-y-3 mt-5 lg:basis-1/4">
       <div class="flex space-x-3">
@@ -47,11 +49,11 @@ import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
         </a>
       </div>
       <a
-        href="CVDanielAlanBarajasSernaOctober2025.pdf"
-        download="CVDanielAlanBarajasSerna"
+        href={lang === "es" ? "/CVDanielAlanBarajasSernaSpanish.pdf" : "/CVDanielAlanBarajasSernaEnglish.pdf"}
+        download={lang === "es" ? "CVDanielAlanBarajasSernaSpanish.pdf" : "CVDanielAlanBarajasSernaEnglish.pdf"}
       >
         <BaseButton>
-          Download CV
+          {t("hero.downloadCV")}
           <DownloadIcon />
         </BaseButton>
       </a>
@@ -71,7 +73,7 @@ import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
       href="#projects"
       class="group basis-2xs flex items-center gap-x-2 justify-center p-2.5 rounded-2xl hover:bg-primary hover:basis-sm hover:font-bold transition-all"
     >
-      Portfolio
+      {t("hero.portfolio")}
       <ArrowRightIcon
         size="28"
         class="hidden -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:inline transition-all duration-200 -rotate-45"
@@ -81,7 +83,7 @@ import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
       href="mailto:danielSerna127@outlook.com"
       class="group basis-2xs flex items-center gap-x-2 justify-center p-2.5 rounded-2xl hover:bg-primary hover:basis-sm hover:font-bold transition-all"
     >
-      Hire Me
+      {t("hero.hireme")}
       <ArrowRightIcon
         size="28"
         class="hidden -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:inline transition-all duration-200 -rotate-45"
