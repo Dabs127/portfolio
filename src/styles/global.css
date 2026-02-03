@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Register your custom font family and tell the browser where to find it. */
 @font-face {
   font-family: 'Nunito';
@@ -16,11 +18,14 @@
     --color-text-secondary: #344054;
     --color-text-muted: #98A2B3;
     --breakpoint-lg: 1025px;
+
+    --color-dark-background: #1a1a1a;
+    --color-dark-primary: #1E2939;
+    --color-text-dark-secondary: #131820;
 }
 
 html, body {
     font-family: 'Nunito', sans-serif;
-    background-color: #FFFFFF;
     color: var(--color-text-secondary);
     margin: 0;
     padding: 0;

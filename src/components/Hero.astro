@@ -6,8 +6,9 @@ import LinkedinIcon from "../icons/LinkedinIcon.astro";
 import BaseButton from "./common/BaseButton.astro";
 import DownloadIcon from "../icons/DownloadIcon.astro";
 import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils"
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 import LanguagePicker from "./LanguagePicker.astro";
+import ToggleDarkModeButton from "./ToggleDarkModeButton.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -16,55 +17,72 @@ const t = useTranslations(lang);
 <section
   class="w-full h-full max-h-min flex flex-col items-center justify-end text-center overflow-hidden relative sm:mb-10 lg:min-h-[85dvh]"
 >
-  <p
-    class="w-1/4 text-xl font-semibold p-3 mb-5 border rounded-3xl z-20 sm:max-w-30 lg:absolute lg:top-5"
+  <div
+    class="mb-10 flex flex-col items-center justify-start w-full h-full lg:px-10 lg:py-5 lg:pb-40"
   >
-    Hello!
-  </p>
-  <LanguagePicker/>
-  <h1 class="text-3xl font-bold tracking-wide mx-5 sm:text-7xl sm:max-w-1/2 md:text-7xl md:max-w-full md:mx-10 lg:text-8xl lg:mx-0 lg:max-w-2/3 lg:absolute lg:top-30 lg:line-clamp-2">
-    {t("hero.pronoun")} <span class="text-primary">Daniel</span>,<br> {t("hero.title")}
-  </h1>
-  <div class="mb-10 lg:absolute lg:flex lg:justify-between lg:items-center lg:bottom-80 lg:w-full lg:px-10 lg:py-5 lg:mb-0">
-    <p class="text-md font-semibold mt-5 mx-5 sm:mx-10 md:text-xl lg:basis-1/4">
-      {t("hero.description")}
+    <p
+      class="w-1/4 text-xl font-semibold p-3 mt-20 mb-5 border rounded-3xl z-20 sm:max-w-30 lg:mt-5"
+    >
+      Hello!
     </p>
-    <div class="flex flex-col items-center space-y-3 mt-5 lg:basis-1/4">
-      <div class="flex space-x-3">
+    <LanguagePicker />
+    <ToggleDarkModeButton />
+    <h1
+      class="text-3xl font-bold tracking-wide mx-5 sm:text-7xl sm:max-w-1/2 md:text-7xl md:max-w-full md:mx-10 lg:text-8xl lg:mx-0 lg:line-clamp-2"
+    >
+      {t("hero.pronoun")}
+      <span class="text-primary">Daniel</span>,<br />
+      {t("hero.title")}
+    </h1>
+    <div
+      class="w-full mb-10 lg:flex lg:justify-between lg:items-center lg:bottom-50 lg:w-full lg:px-10 lg:py-5 lg:mb-0"
+    >
+      <p
+        class="text-md font-semibold mt-5 mx-5 sm:mx-10 md:text-xl lg:basis-1/4"
+      >
+        {t("hero.description")}
+      </p>
+      <div class="flex flex-col items-center space-y-3 mt-5 lg:basis-1/4">
+        <div class="flex space-x-3">
+          <a
+            href="https://github.com/Dabs127"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Github profile"
+          >
+            <GithubIcon class="w-10 h-10 lg:w-12 lg:h-12" />
+          </a>
+          <a
+            href="https://linkedin.com/in/dabs127"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Linkedin profile"
+          >
+            <LinkedinIcon class="w-10 h-10 lg:w-12 lg:h-12" />
+          </a>
+        </div>
         <a
-          href="https://github.com/Dabs127"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Github profile"
+          href={lang === "es"
+            ? "/CVDanielAlanBarajasSernaSpanish.pdf"
+            : "/CVDanielAlanBarajasSernaEnglish.pdf"}
+          download={lang === "es"
+            ? "CVDanielAlanBarajasSernaSpanish.pdf"
+            : "CVDanielAlanBarajasSernaEnglish.pdf"}
         >
-          <GithubIcon class="w-15 h-15" />
-        </a>
-        <a
-          href="https://linkedin.com/in/dabs127"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Linkedin profile"
-        >
-          <LinkedinIcon class="w-15 h-15" />
+          <BaseButton>
+            {t("hero.downloadCV")}
+            <DownloadIcon />
+          </BaseButton>
         </a>
       </div>
-      <a
-        href={lang === "es" ? "/CVDanielAlanBarajasSernaSpanish.pdf" : "/CVDanielAlanBarajasSernaEnglish.pdf"}
-        download={lang === "es" ? "CVDanielAlanBarajasSernaSpanish.pdf" : "CVDanielAlanBarajasSernaEnglish.pdf"}
-      >
-        <BaseButton>
-          {t("hero.downloadCV")}
-          <DownloadIcon />
-        </BaseButton>
-      </a>
     </div>
   </div>
   <Image
     src={myImage}
     alt="An image of Daniel Barajas"
     widths={[140, 260, 380]}
-    sizes="(max-width: 640px) 140px, 360px"
-    class="relative bottom-0 aspect-square z-10 lg:absolute"
+    sizes="(max-width: 640px) 160px, 280px"
+    class="relative bottom-0 aspect-square z-10 lg:absolute lg:w-124"
   />
   <div
     class="absolute bottom-0 w-2/3 min-w-min h-auto flex justify-center items-center space-x-5 text-white text-xl backdrop-blur-sm mb-5 p-3 rounded-full border-4 border-x-2 border-t z-10 lg:max-w-1/4"
@@ -91,8 +109,8 @@ const t = useTranslations(lang);
     </a>
   </div>
   <div
-    class="w-full h-1/4 bg-primary absolute rounded-t-full z-0  
-         sm:h-120 sm:max-w-200"
+    class="w-full h-1/4 bg-primary absolute rounded-t-full z-0
+         sm:h-100 sm:max-w-200"
   >
   </div>
 </section>

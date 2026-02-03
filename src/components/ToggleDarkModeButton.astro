@@ -1,0 +1,59 @@
+---
+import MoonIcon from "../icons/MoonIcon.astro";
+import SunIcon from "../icons/SunIcon.astro";
+
+// DarkModeToggle.astro
+---
+
+<button
+  id="theme-toggle"
+  class="absolute top-0 left-5 p-2 rounded-lg border border-gray-300 hover:cursor-pointer dark:border-gray-600 bg-white lg:left-1/8 dark:bg-dark-primary hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+  aria-label="Toggle dark mode"
+>
+  <MoonIcon  />
+  <SunIcon />
+</button>
+
+<script is:inline>
+  const themeToggle = document.getElementById('theme-toggle');
+  const darkIcon = document.getElementById('theme-toggle-dark-icon');
+  const lightIcon = document.getElementById('theme-toggle-light-icon');
+  const html = document.documentElement;
+
+  // Función para actualizar el icono
+  function updateIcon(isDark) {
+    if (isDark) {
+      darkIcon.classList.remove('hidden');
+      lightIcon.classList.add('hidden');
+    } else {
+      darkIcon.classList.add('hidden');
+      lightIcon.classList.remove('hidden');
+    }
+  }
+
+  // Inicializar tema
+  const savedTheme = localStorage.getItem('theme');
+  const isDark = savedTheme === 'dark' || (!savedTheme && true); // true = dark por defecto
+
+  if (isDark) {
+    html.classList.add('dark');
+  } else {
+    html.classList.remove('dark');
+  }
+  updateIcon(isDark);
+
+  // Toggle theme
+  themeToggle.addEventListener('click', () => {
+    const currentIsDark = html.classList.contains('dark');
+    
+    if (currentIsDark) {
+      html.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+      updateIcon(false);
+    } else {
+      html.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      updateIcon(true);
+    }
+  });
+</script>

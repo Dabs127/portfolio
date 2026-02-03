@@ -4,7 +4,7 @@ import { languages } from '../i18n/ui';
 
 <select
   id="lang-select"
-  class="absolute top-0 right-5 rounded-full border border-text-muted bg-white px-4 py-2 text-xl cursor-pointer focus:outline-none appearance-none lg:right-1/8"
+  class="absolute top-0 right-5 rounded-full border border-text-muted bg-white px-4 py-2 text-xl cursor-pointer focus:outline-none appearance-none lg:right-1/8 dark:border-gray-600 dark:bg-dark-primary dark:text-white"
   onchange="window.location.href = this.value"
 >
   {Object.entries(languages).map(([lang, label]) => (

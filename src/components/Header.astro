@@ -1,23 +1,25 @@
 ---
 import { Image } from "astro:assets";
 import { Menu, X } from "@lucide/astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils"
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import myLogo from "../assets/LogoDABS.png";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<header class="w-full h-auto max-h-min mb-5 sm:py-3 md:mx-auto lg:max-w-4/5">
+<header
+  class="w-full h-auto max-h-min mb-5 sm:py-3 md:mx-auto lg:mb-0 lg:max-w-4/5"
+>
   <nav
-    class="flex justify-between items-center min-h-20 text-white bg-[#3A3335] sm:p-5 sm:rounded-full"
+    class="flex justify-between items-center min-h-20 text-white bg-[#3A3335] sm:p-5 sm:rounded-full lg:h-15"
   >
     <ul
       class="hidden sm:flex sm:basis-2/5 sm:items-center justify-center sm:text-center sm:space-x-8
     [&>a]:rounded-full
     [&>a]:text-lg
     [&>a]:hidden
-    [&>a]:sm:flex
-    "
+    [&>a]:sm:flex"
     >
       <a href="#home">{t("nav.home")}</a>
       <a href="#work-experience">{t("nav.workexperience")}</a>
@@ -27,14 +29,11 @@ const t = useTranslations(lang);
     <div
       class="group flex items-center gap-x-3 text-white sm:basis-1/5 sm:justify-center"
     >
-      <span
-        class="bg-primary py-3 px-5 rounded-full text-2xl font-bold
-           opacity-100 translate-y-0
-           group-hover:opacity-0 group-hover:-translate-y-2
-           transition-all duration-300"
-      >
-        DABS
-      </span>
+      <Image
+        src={myLogo}
+        alt="Logo Daniel Serna"
+        class="w-20 h-20 object-cover opacity-100 translate-y-0 group-hover:opacity-0 group-hover:-translate-y-2 transition-all duration-300 sm:w-50 sm:h-30"
+      />
 
       <div
         class="text-xl absolute
@@ -48,12 +47,11 @@ const t = useTranslations(lang);
     </div>
 
     <ul
-      class="hidden sm:flex sm:basis-2/5 sm:justify-start sm:items-center sm:space-x-6 [&>a]:py-4
+      class="hidden sm:flex sm:basis-2/5 sm:justify-center sm:items-center sm:space-x-6 [&>a]:py-4
     [&>a]:rounded-full
     [&>a]:text-lg
     [&>a]:hidden
-    [&>a]:sm:flex
-    "
+    [&>a]:sm:flex"
     >
       <a href="#projects">{t("nav.projects")}</a>
       <a href="#tech-stack">Tech Stack</a>
