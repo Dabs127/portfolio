@@ -1,0 +1,188 @@
+---
+import { Image } from "astro:assets";
+import CafeAromaImg from "../assets/CafeAromaProject.jpg";
+import nextImg from "../assets/technologies/next.png";
+import typescriptImg from "../assets/technologies/typescript.png";
+import nodejsImg from "../assets/technologies/nodeJs.png";
+import expressImg from "../assets/technologies/expressJs.webp";
+import mongodbImg from "../assets/technologies/mongodb.png";
+import GithubIcon from "../icons/GithubIcon.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils"
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const projects = [
+  {
+    title: "Cafe Aroma",
+    description: t("portfolio.project1.description"),
+    imageUrl: CafeAromaImg,
+    githubLink: "https://github.com/Dabs127/cafearoma-frontend",
+    technologies: [
+      { name: "Next", image: nextImg.src },
+      { name: "Typescript", image: typescriptImg.src },
+      { name: "Node.js", image: nodejsImg.src },
+      { name: "Express", image: expressImg.src },
+      { name: "MongoDB", image: mongodbImg.src },
+    ],
+  },
+];
+---
+
+<div class="w-full relative space-y-4 lg:hidden">
+  <!-- Carousel wrapper con overflow -->
+  <div class="overflow-hidden">
+    <div id="carousel" class="flex transition-transform duration-300">
+      {
+        projects.map((p, idx) => (
+          <div class="carousel-slide shrink-0 relative h-64  md:h-96">
+            <div class="w-full h-full bg-gray-200 rounded-xl lg:rounded-3xl overflow-hidden">
+              <Image
+                src={p.imageUrl}
+                alt={`Image about project ${p.title}`}
+                class="w-full h-full object-cover"
+              />
+              <a href={p.githubLink} target="_blank" rel="noopener noreferrer">
+                <GithubIcon
+                  size="40"
+                  class="absolute top-4 right-4 cursor-pointer hover:scale-110 transition-transform z-10"
+                  fill="#ffffff"
+                />
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Indicadores -->
+  <div class="w-full flex justify-center gap-2">
+    {
+      projects.map((p, index) => (
+        <button
+          class={`indicator h-3 rounded-full cursor-pointer ${index === 0 ? "bg-primary w-8" : "bg-text-muted w-3"} transition-all duration-300`}
+          data-index={index}
+          aria-label={`Go to project ${index + 1}`}
+        />
+      ))
+    }
+  </div>
+
+  <!-- Info del proyecto -->
+  <div class="w-full flex flex-col items-center text-center px-5">
+    <h4 id="project-title" class="text-2xl text-secondary font-extrabold">
+      {projects[0]?.title}
+    </h4>
+    <p id="project-description" class="max-w-2xl mt-2">
+      {projects[0]?.description}
+    </p>
+    <div id="tech-stack-container" class="mt-4 flex justify-center gap-4 flex-wrap max-w-md">
+      {
+        projects[0]?.technologies.map((tech) => (
+          <img
+            src={tech.image}
+            alt={tech.name}
+            title={tech.name}
+            class="w-10 h-10 sm:w-12 sm:h-12 object-contain hover:scale-110 transition-transform"
+          />
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ projects }}>
+  const carousel = document.getElementById("carousel");
+  const slides = document.querySelectorAll(".carousel-slide");
+  const indicators = document.querySelectorAll(".indicator");
+  const projectTitle = document.querySelector("#project-title");
+  const projectDescription = document.querySelector("#project-description");
+
+  let index = 0;
+  let startX = 0;
+  let currentX = 0;
+  const threshold = 50;
+
+  // ✅ Establecer el ancho de cada slide igual al ancho del carousel
+  const setSlideWidths = () => {
+    if (carousel) {
+      const carouselWidth = carousel.parentElement.offsetWidth;
+      slides.forEach(slide => {
+        slide.style.width = `${carouselWidth}px`;
+      });
+    }
+  };
+
+  // Establecer anchos al cargar
+  setSlideWidths();
+
+  // Recalcular al cambiar tamaño de ventana
+  window.addEventListener('resize', setSlideWidths);
+
+  const update = () => {
+    if (carousel) {
+      const carouselWidth = carousel.parentElement.offsetWidth;
+      carousel.style.transform = `translateX(-${index * carouselWidth}px)`;
+    }
+    
+    indicators.forEach((indicator, i) => {
+      if (i === index) {
+        indicator.classList.remove("bg-text-muted", "w-3");
+        indicator.classList.add("bg-primary", "w-8");
+      } else {
+        indicator.classList.remove("bg-primary", "w-8");
+        indicator.classList.add("bg-text-muted", "w-3");
+      }
+    });
+
+    if (projectTitle) projectTitle.textContent = projects[index]?.title || "";
+    if (projectDescription) projectDescription.textContent = projects[index]?.description || "";
+
+    const techStack = projects[index]?.technologies || [];
+    const techContainer = document.getElementById("tech-stack-container");
+
+    if (techContainer) {
+      techContainer.innerHTML = techStack
+        .map(tech => `<img src="${tech.image}" alt="${tech.name}" title="${tech.name}" class="w-10 h-10 sm:w-12 sm:h-12 object-contain hover:scale-110 transition-transform" />`)
+        .join("");
+    }
+  };
+
+  indicators.forEach((indicator, i) => {
+    indicator.addEventListener("click", () => {
+      index = i;
+      update();
+    });
+  });
+
+  carousel?.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+    currentX = startX;
+    // ✅ Prevenir scroll de la página cuando se toca el carousel
+    e.preventDefault();
+  }, { passive: false });
+
+  carousel?.addEventListener("touchmove", (e) => {
+    currentX = e.touches[0].clientX;
+    const diff = startX - currentX;
+    
+    // ✅ Prevenir scroll de la página durante el movimiento
+    e.preventDefault();
+    
+    if (carousel) {
+      const carouselWidth = carousel.parentElement.offsetWidth;
+      carousel.style.transform = `translateX(calc(-${index * carouselWidth}px - ${diff}px))`;
+    }
+  }, { passive: false });
+
+  carousel?.addEventListener("touchend", () => {
+    const diff = startX - currentX;
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0 && index < projects.length - 1) index++;
+      if (diff < 0 && index > 0) index--;
+    }
+    update();
+    startX = currentX = 0;
+  });
+</script>

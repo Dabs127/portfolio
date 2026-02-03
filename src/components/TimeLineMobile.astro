@@ -1,0 +1,133 @@
+---
+import ClickIcon from "../icons/ClickIcon.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils"
+
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const works = [
+  {
+    location: "Nuevo León, México",
+    date: t("myworkexperience.work1.date"),
+    position: t("myworkexperience.work1.position"),
+    company: "Banorte",
+    description:
+      t("myworkexperience.work1.description"),
+  },
+  {
+    location: "Nuevo León, México",
+    date: t("myworkexperience.work2.date"),
+    position: t("myworkexperience.work2.position"),
+    company: "Brillamont",
+    description:
+      t("myworkexperience.work2.description"),
+  },
+  {
+    location: "Nuevo León, México",
+    date: t("myworkexperience.work3.date"),
+    position: t("myworkexperience.work3.position"),
+    company: "Local Solution IT",
+    description:
+      t("myworkexperience.work3.description"),
+  },
+];
+---
+
+<div class="flex flex-col items-center justify-center w-full">
+  {
+    works.map((work, index) => (
+      <div class="flex flex-col w-full max-w-4xl items-center mb-20 relative">
+        <div class="basis-1/3 text-center backdrop-blur-xs p-4 rounded-lg">
+          <h3 class="text-xl font-bold text-text-secondary">{work.location}</h3>
+          <p class="text-md text-text-muted">{work.date}</p>
+          <h3 class="text-lg font-bold text-text-secondary mt-2">
+            {work.position}
+          </h3>
+          <h3 class="text-lg font-semibold text-text-secondary mt-1">
+            {work.company}
+          </h3>
+        </div>
+        <div class="basis-1/3 flex items-center justify-center p-1 border-6 border-text-secondary border-dashed rounded-full my-4">
+          <button
+            class={`see-more-btn w-20 h-20 ${index === 0 || index === works.length - 1 ? "bg-primary" : "bg-secondary"} rounded-full flex items-center justify-center hover:scale-110 transition-transform`}
+            data-title={work.position}
+            data-description={work.description}
+            data-date={work.date}
+          >
+            <ClickIcon size={40} />
+          </button>
+        </div>
+        {index < works.length - 1 && (
+          <div class="w-1 h-65 absolute top-68  border-4 border-text-secondary border-dashed" />
+        )}
+      </div>
+    ))
+  }
+</div>
+
+<div id="modal" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-50">
+  <div
+    class="flex items-center justify-center min-h-screen px-4 pointer-events-none"
+  >
+    <div
+      class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-10 relative pointer-events-auto dark:bg-dark-primary"
+    >
+      <span
+        class="close absolute right-6 top-6 text-3xl font-bold text-slate-400 cursor-pointer hover:text-slate-800 leading-none"
+        >&times;</span
+      >
+      <p class="modal-date text-text-muted font-semibold mb-2" id="modal-date">
+      </p>
+      <h2 class="text-3xl font-bold text-primary mb-4 mt-0" id="modal-title">
+      </h2>
+      <p class="text-slate-600 leading-relaxed" id="modal-description"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("modal");
+  const closeBtn = document.querySelector(".close");
+  const seeMoreBtns = document.querySelectorAll(".see-more-btn");
+
+  seeMoreBtns.forEach((btn: Element) => {
+    btn.addEventListener("click", () => {
+      console.log(modal);
+      const htmlBtn = btn as HTMLElement;
+      const title = htmlBtn.dataset.title;
+      const description = htmlBtn.dataset.description;
+      const date = htmlBtn.dataset.date;
+
+      const modalTitle = document.getElementById("modal-title");
+      const modalDescription = document.getElementById("modal-description");
+
+      const modalDate = document.getElementById("modal-date");
+
+      if (
+        !title ||
+        !description ||
+        !date ||
+        !modalTitle ||
+        !modalDescription ||
+        !modalDate
+      )
+        return;
+
+      modalTitle.textContent = title;
+      modalDescription.textContent = description;
+      modalDate.textContent = date;
+      modal?.classList.remove("hidden");
+    });
+  });
+
+  closeBtn?.addEventListener("click", () => {
+    modal?.classList.add("hidden");
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal?.classList.add("hidden");
+    }
+  });
+</script>

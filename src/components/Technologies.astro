@@ -1,0 +1,48 @@
+---
+import { Image } from "astro:assets";
+import vueImg  from "../assets/technologies/vue.png"
+import reactImg  from "../assets/technologies/react.png"
+import nodeJsImg from "../assets/technologies/nodejs.png"
+import gitImg from "../assets/technologies/git.png"
+import githubImg from "../assets/technologies/github.png"
+import nextImg from "../assets/technologies/next.png"
+import nuxtImg from "../assets/technologies/nuxt.png"
+import mysqlImg from "../assets/technologies/mysql.png"
+import postgresImg from "../assets/technologies/postgres.png"
+import csharpImg from "../assets/technologies/csharp.png"
+import dotnetImg from "../assets/technologies/dotnet.png"
+import typescriptImg from "../assets/technologies/typescript.png";
+
+const technologies = [
+  { name: "Vue", img: vueImg },
+  { name: "React", img: reactImg },
+  { name: "Node.js", img: nodeJsImg },
+  { name: "Git", img: gitImg },
+  { name: "Github", img: githubImg },
+  { name: "Next.js", img: nextImg },
+  { name: "Nuxt.js", img: nuxtImg },
+  { name: "MySQL", img: mysqlImg},
+  { name: "PostgreSQL", img: postgresImg },
+  { name: "C#", img: csharpImg },
+  { name: ".NET", img: dotnetImg },
+  { name: "TypeScript", img: typescriptImg },
+];
+---
+
+<section id="tech-stack" class="w-full min-h-40 h-min bg-[url(/src/assets/fondoLavanda.avif)] bg-cover bg-center flex flex-col items-center justify-center gap-8 py-16 mb-60 lg:pt-24 lg:pb-48">
+  <h3 class="text-white font-bold text-4xl lg:text-7xl lg:mb-20">Tech Stack</h3>
+  <div class="w-full max-w-6xl grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 sm:gap-6">
+  {
+    technologies.map(tech => (
+      <div class="flex flex-col items-center justify-center gap-2 bg-secondary/20 backdrop-blur-sm py-4 px-3 rounded-lg shadow-lg hover:scale-105 transition-all">
+        <Image 
+          src={tech.img} 
+          alt={tech.name} 
+          class="w-12 h-12 sm:w-14 sm:h-14 object-contain"
+        />
+        <p class="text-sm sm:text-base text-white font-semibold text-center">{tech.name}</p>
+      </div>
+    ))      
+  }
+</div>
+</section>

@@ -1,0 +1,71 @@
+---
+import ArrowRightIcon from "../icons/ArrowRightIcon.astro";
+import GithubIcon from "../icons/GithubIcon.astro";
+import LinkedinIcon from "../icons/LinkedinIcon.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils"
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<footer class="w-full bg-secondary h-auto p-3 lg:px-10">
+  <div
+    class="flex w-full gap-x-6 py-8 border-b border-b-text-muted/20 justify-center items-center md:justify-between"
+  >
+    <h3 class="text-white text-3xl md:text-6xl">{t("footer.letsconnect")}</h3>
+    <a
+      href="mailto:danielSerna127@outlook.com"
+      class="group bg-primary text-white p-3 rounded-lg flex items-center gap-x-3 md:text-2xl md:p-5
+         hover:bg-purple-700 hover:cursor-pointer transition-colors duration-300"
+    >
+      {t("footer.contactme")}
+      <ArrowRightIcon
+        class="transform -rotate-45 lg:w-10 lg:h-10 group-hover:rotate-0 transition-transform duration-300"
+      />
+    </a>
+  </div>
+  <div
+    class="flex justify-between py-5 border-b border-b-text-muted/20 md:justify-start"
+  >
+    <div class="basis-1/4 text-primary text-2xl font-bold lg:text-4xl">
+      <h4>{t("footer.nav.home")}</h4>
+      <ul class="text-white text-lg space-y-4 py-3 lg:text-xl">
+        <li><a href="#home">{t("footer.nav.home")}</a></li>
+        <li><a href="#work-experience">{t("footer.nav.workexperience")}</a></li>
+        <li><a href="#why-hire-me">{t("footer.nav.whyhireme")}</a></li>
+        <li><a href="#projects">{t("footer.nav.projects")}</a></li>
+        <li><a href="#tech-stack">Tech Stack</a></li>
+      </ul>
+    </div>
+    <div class="basis-1/4 text-primary text-2xl font-bold lg:text-4xl">
+      <h4>{t("footer.contact")}</h4>
+      <p class="text-white text-sm py-3 lg:text-xl">
+        {t("footer.email")}: danielSerna127@outlook.com
+      </p>
+      <p class="text-white text-xl">{t("footer.phone")}: +52 81 17 86 92 73</p>
+      <div class="flex space-x-3 mt-5">
+        <a
+          href="https://github.com/Dabs127"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Github profile"
+        >
+          <GithubIcon size="40" />
+        </a>
+        <a
+          href="https://linkedin.com/in/dabs127"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Linkedin profile"
+        >
+          <LinkedinIcon size="40" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="text-text-muted text-center py-4">
+      &copy; 2026 Daniel Serna. {t("footer.rights")}.
+    </p>
+  </div>
+</footer>
