@@ -1,6 +1,6 @@
 ---
 import ClickIcon from "../icons/ClickIcon.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils"
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -8,63 +8,60 @@ const t = useTranslations(lang);
 const works = [
   {
     location: "Nuevo León, México",
-    date: t("myworkexperience.work1.date"),
-    position: t("myworkexperience.work1.position"),
-    company: "Banorte",
-    description:
-      t("myworkexperience.work1.description"),
+    date: t("myworkexperience.work3.date"),
+    position: t("myworkexperience.work3.position"),
+    company: "Local Solution IT",
+    description: t("myworkexperience.work3.description"),
   },
   {
     location: "Nuevo León, México",
     date: t("myworkexperience.work2.date"),
     position: t("myworkexperience.work2.position"),
     company: "Brillamont",
-    description:
-      t("myworkexperience.work2.description"),
+    description: t("myworkexperience.work2.description"),
   },
   {
     location: "Nuevo León, México",
-    date: t("myworkexperience.work3.date"),
-    position: t("myworkexperience.work3.position"),
-    company: "Local Solution IT",
-    description:
-      t("myworkexperience.work3.description"),
+    date: t("myworkexperience.work1.date"),
+    position: t("myworkexperience.work1.position"),
+    company: "Banorte",
+    description: t("myworkexperience.work1.description"),
   },
 ];
 ---
 
 <div class="w-full h-auto relative flex items-start justify-center mt-20 mb-60">
-
-  <div
-    class="flex flex-col items-center justify-start basis-1/2"
-  >
+  <div class="flex flex-col items-center justify-start basis-1/2">
     {
       works.map((work, index) => (
         <div class="flex flex-col items-center">
           <div class="flex items-start justify-center p-1 border-4 border-text-secondary border-dashed rounded-full">
             <div
-              class={`see-more-btn relative w-12 h-12 ${index === 0 || index === works.length - 1 ? "bg-primary" : "bg-secondary"} rounded-full`}
+              class={`see-more-btn relative w-12 h-12 ${index === 0 || index === works.length - 1 ? "bg-primary" : "bg-secondary dark:bg-text-dark-primary"} rounded-full`}
               data-title={work.position}
               data-description={work.description}
               data-date={work.date}
             >
               <div class="absolute min-w-250 h-16 flex flex-col items-end justify-center right-64">
-                <h3 class="text-4xl font-bold">{work.location}</h3>
+                <h3 class="text-4xl font-bold dark:text-text-dark-primary">
+                  {work.location}
+                </h3>
                 <span class="text-text-muted text-lg font-semibold lg:text-xl">
                   {work.date}
                 </span>
               </div>
 
               <div class="absolute min-w-100 flex flex-col items-start justify-start rounded-lg left-64">
-                <h3 class="text-4xl font-bold text-text-secondary">
+                <h3 class="text-4xl font-bold text-text-secondary dark:text-text-dark-primary">
                   {work.position}
                 </h3>
-                <h3 class="text-lg font-semibold text-text-secondary mt-1">
+                <h3 class="text-lg font-semibold text-text-dark-primary mt-1">
                   {work.company}
                 </h3>
-                <p class="text-md text-text-muted text-balance mt-2 lg:text-lg">{work.description}</p>
+                <p class="text-md text-text-muted text-balance mt-2 lg:text-lg">
+                  {work.description}
+                </p>
               </div>
-
             </div>
           </div>
           {index < works.length - 1 && (

@@ -1,7 +1,6 @@
 ---
 import ClickIcon from "../icons/ClickIcon.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils"
-
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -9,27 +8,24 @@ const t = useTranslations(lang);
 const works = [
   {
     location: "Nuevo León, México",
-    date: t("myworkexperience.work1.date"),
-    position: t("myworkexperience.work1.position"),
-    company: "Banorte",
-    description:
-      t("myworkexperience.work1.description"),
+    date: t("myworkexperience.work3.date"),
+    position: t("myworkexperience.work3.position"),
+    company: "Local Solution IT",
+    description: t("myworkexperience.work3.description"),
   },
   {
     location: "Nuevo León, México",
     date: t("myworkexperience.work2.date"),
     position: t("myworkexperience.work2.position"),
     company: "Brillamont",
-    description:
-      t("myworkexperience.work2.description"),
+    description: t("myworkexperience.work2.description"),
   },
   {
     location: "Nuevo León, México",
-    date: t("myworkexperience.work3.date"),
-    position: t("myworkexperience.work3.position"),
-    company: "Local Solution IT",
-    description:
-      t("myworkexperience.work3.description"),
+    date: t("myworkexperience.work1.date"),
+    position: t("myworkexperience.work1.position"),
+    company: "Banorte",
+    description: t("myworkexperience.work1.description"),
   },
 ];
 ---
@@ -39,12 +35,14 @@ const works = [
     works.map((work, index) => (
       <div class="flex flex-col w-full max-w-4xl items-center mb-20 relative">
         <div class="basis-1/3 text-center backdrop-blur-xs p-4 rounded-lg">
-          <h3 class="text-xl font-bold text-text-secondary">{work.location}</h3>
+          <h3 class="text-xl font-bold text-text-secondary dark:text-text-dark-primary">
+            {work.location}
+          </h3>
           <p class="text-md text-text-muted">{work.date}</p>
-          <h3 class="text-lg font-bold text-text-secondary mt-2">
+          <h3 class="text-lg font-bold text-text-secondary mt-2 dark:text-text-dark-primary">
             {work.position}
           </h3>
-          <h3 class="text-lg font-semibold text-text-secondary mt-1">
+          <h3 class="text-lg font-semibold text-text-secondary mt-1 dark:text-text-dark-primary">
             {work.company}
           </h3>
         </div>
@@ -81,7 +79,11 @@ const works = [
       </p>
       <h2 class="text-3xl font-bold text-primary mb-4 mt-0" id="modal-title">
       </h2>
-      <p class="text-slate-600 leading-relaxed" id="modal-description"></p>
+      <p
+        class="text-slate-600 leading-relaxed dark:text-text-dark-primary"
+        id="modal-description"
+      >
+      </p>
     </div>
   </div>
 </div>
